@@ -11,7 +11,7 @@ module.exports = {
       },
       home_team: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         references: {
           model: 'clubs',
           key: 'id'
@@ -23,7 +23,7 @@ module.exports = {
       },
       away_team: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         references: {
           model: 'clubs',
           key: 'id'
