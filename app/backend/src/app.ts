@@ -1,34 +1,8 @@
 import * as express from 'express';
+import * as bodyParser from 'body-parser';
 
-class App {
-  public app: express.Express;
-  // ...
+const app = express();
 
-  constructor() {
-    // ...
-    this.config();
-    // ...
-  }
+app.use(bodyParser.json());
 
-  private config():void {
-    const accessControl: express.RequestHandler = (_req, res, next) => {
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT');
-      res.header('Access-Control-Allow-Headers', '*');
-      next();
-    };
-
-    this.app.use(accessControl);
-    // ...
-  }
-
-  // ...
-  public start(PORT: string | number):void {
-    // ...
-  }
-}
-
-export { App };
-
-// A execução dos testes de cobertura depende dessa exportação
-export const { app } = new App();
+export default app;
