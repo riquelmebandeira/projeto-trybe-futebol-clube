@@ -8,8 +8,17 @@ class Club extends Model {
 }
 
 Club.init({
-  id: DataTypes.INTEGER,
-  clubName: DataTypes.STRING,
+  id: {
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+    type: DataTypes.INTEGER,
+  },
+  clubName: {
+    allowNull: false,
+    type: DataTypes.STRING,
+    field: 'club_name'
+  }
 }, {
   underscored: true,
   sequelize: db,
