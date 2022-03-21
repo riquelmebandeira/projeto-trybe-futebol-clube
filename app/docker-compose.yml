@@ -2,7 +2,6 @@ version: '3.9'
 services:
   frontend:
     build: ./frontend
-    container_name: frontend_container
     restart: always
     ports:
       - 3000:3000
@@ -15,7 +14,6 @@ services:
       retries: 5
   backend:
     build: ./backend
-    container_name: backend_container
     restart: always
     ports:
       - 3001:3001
@@ -35,7 +33,6 @@ services:
       retries: 5
   db:
     image: mysql:8.0.21
-    container_name: db_container
     ports:
       - 3002:3306
     environment:
