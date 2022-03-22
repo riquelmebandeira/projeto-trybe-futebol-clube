@@ -812,7 +812,7 @@ Para o desenvolvimento, o time de produto te deu uma imagem para construir a mod
   - caso algum dos times não esteja cadastrado no banco de dados, deve-se retornar o seguinte erro:
 
   ```json
-  { "message": "Team not found" }
+  { "message": "There is no team with such id!" }
   ```
 
 ### Editar Partidas
