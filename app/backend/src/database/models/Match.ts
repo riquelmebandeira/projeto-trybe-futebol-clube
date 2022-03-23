@@ -31,8 +31,8 @@ Match.init({
     field: 'home_team',
     references: {
       model: 'clubs',
-      key: 'id'
-    }
+      key: 'id',
+    },
   },
   homeTeamGoals: {
     allowNull: false,
@@ -47,8 +47,8 @@ Match.init({
     field: 'away_team',
     references: {
       model: 'clubs',
-      key: 'id'
-    }
+      key: 'id',
+    },
   },
   awayTeamGoals: {
     allowNull: false,

@@ -17,8 +17,8 @@ Club.init({
   clubName: {
     allowNull: false,
     type: DataTypes.STRING,
-    field: 'club_name'
-  }
+    field: 'club_name',
+  },
 }, {
   underscored: true,
   sequelize: db,
