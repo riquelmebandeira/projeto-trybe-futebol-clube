@@ -13,7 +13,7 @@ loginRouter.post('/', async (req: Request, res: Response) => {
 
   const { password, ...userInfo } = user;
 
-  const jwtSecret = await fs.readFile('../../jwt.evalution.key', 'utf-8');
+  const jwtSecret = await fs.readFile('jwt.evaluation.key', 'utf-8');
 
   const token = jwt.sign(userInfo, jwtSecret);
 

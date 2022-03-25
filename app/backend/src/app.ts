@@ -1,16 +1,18 @@
 import * as express from 'express';
+import IRoute from './interfaces';
+import Routes from './routes';
 
 class App {
   public app: express.Express;
   // ...
 
-  constructor() {
+  constructor(routes: IRoute[]) {
     this.app = express();
-    this.config();
+    this.config(routes);
     // ...
   }
 
-  private config():void {
+  private config(routes: IRoute[]):void {
     const accessControl: express.RequestHandler = (_req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT');
@@ -20,6 +22,7 @@ class App {
 
     this.app.use(accessControl);
     this.app.use(express.json());
+    routes.forEach(({ resource, router }) => this.app.use(resource, router));
     // ...
   }
 
@@ -32,4 +35,4 @@ class App {
 export { App };
 
 // A execução dos testes de cobertura depende dessa exportação
-export const { app } = new App();
+export const { app } = new App(Routes);
