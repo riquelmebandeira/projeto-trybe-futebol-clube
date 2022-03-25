@@ -4,7 +4,7 @@ class LoginService {
   readonly userModel = User;
 
   async login(email: string): Promise<User> {
-    const result = await this.userModel.findOne({ where: { email } });
+    const result = await this.userModel.findOne({ raw: true, where: { email } });
 
     return result as User;
   }
