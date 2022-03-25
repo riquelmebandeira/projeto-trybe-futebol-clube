@@ -20,9 +20,9 @@ const userMock = {
 }
 
 describe('Ao fazer uma requisição do tipo POST para a rota /login', () => {
+  let chaiHttpResponse: Response;
+
   describe('E enviar dados válidos de um usuário existente', () => {
-    let chaiHttpResponse: Response;
-  
     before(async () => {
       sinon.stub(User, "findOne")
         .resolves({
@@ -32,14 +32,14 @@ describe('Ao fazer uma requisição do tipo POST para a rota /login', () => {
       chaiHttpResponse = await chai
         .request(app)
         .post('/login')
-        .send({username: 'Admin', password: '12345678'});
+        .send({email: 'admin@admin.com'});
     });
   
     after(() => {
       (User.findOne as sinon.SinonStub).restore();
     })
   
-    it('A resposta deve conter o código de status 200', async () => {
+    it('A resposta deve conter o código de status 200', () => {
       expect(chaiHttpResponse).to.have.status(200);
     });
 
@@ -53,6 +53,38 @@ describe('Ao fazer uma requisição do tipo POST para a rota /login', () => {
 
     it('Tal objeto deve possuir a propriedade token', () => {
       expect(chaiHttpResponse.body).to.be.have.property('token');
+    });
+  })
+
+  describe('E enviar um email inexistente', () => {
+    before(async () => {
+      sinon.stub(User, "findOne")
+        .resolves(null);
+
+      chaiHttpResponse = await chai
+        .request(app)
+        .post('/login')
+        .send({email: 'guest@guest.com'});
+    });
+  
+    after(() => {
+      (User.findOne as sinon.SinonStub).restore();
+    })
+  
+    it('A resposta deve conter o código de status 401', () => {
+      expect(chaiHttpResponse).to.have.status(401);
+    });
+
+    it('A requisição deve retornar um objeto no corpo da resposta', () => {
+      expect(chaiHttpResponse.body).to.be.a('object');
+    });
+
+    it('Tal objeto deve possuir a propriedade "message"', () => {
+      expect(chaiHttpResponse.body).to.be.have.property('message');
+    });
+
+    it('A mensagem deve possuir o texto "Incorrect email or password"', () => {
+      expect(chaiHttpResponse.body.message).to.equal('Incorrect email or password');
     });
   })
 });
