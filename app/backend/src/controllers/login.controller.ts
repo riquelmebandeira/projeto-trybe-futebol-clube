@@ -4,7 +4,7 @@ import User from '../database/models/User';
 class LoginController {
   constructor(readonly loginService: LoginService) {}
 
-  async login(email: string): Promise<User> {
+  async login(email: string): Promise<User | null> {
     const result = await this.loginService.login(email);
 
     return result;

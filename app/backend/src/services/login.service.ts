@@ -3,10 +3,10 @@ import User from '../database/models/User';
 class LoginService {
   readonly userModel = User;
 
-  async login(email: string): Promise<User> {
+  async login(email: string): Promise<User | null> {
     const result = await this.userModel.findOne({ raw: true, where: { email } });
 
-    return result as User;
+    return result as User | null;
   }
 }
 
