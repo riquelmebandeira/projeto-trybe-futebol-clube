@@ -65,7 +65,10 @@ describe('Ao fazer uma requisição do tipo POST para a rota /login', () => {
       chaiHttpResponse = await chai
         .request(app)
         .post('/login')
-        .send({email: 'guest@guest.com'});
+        .send({
+          email: 'guest@guest.com',
+          password: '12345678'
+        });
     });
   
     after(() => {
