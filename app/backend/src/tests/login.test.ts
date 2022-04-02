@@ -25,9 +25,7 @@ describe('Ao fazer uma requisição do tipo POST para a rota /login', () => {
   describe('E enviar dados válidos de um usuário existente', () => {
     before(async () => {
       sinon.stub(User, "findOne")
-        .resolves({
-            userMock
-          } as unknown as User);
+        .resolves(userMock as unknown as User);
 
       chaiHttpResponse = await chai
         .request(app)
@@ -91,9 +89,7 @@ describe('Ao fazer uma requisição do tipo POST para a rota /login', () => {
   describe('E enviar uma senha incorreta', () => {
     before(async () => {
       sinon.stub(User, "findOne")
-        .resolves({
-          userMock
-        } as unknown as User);
+        .resolves(userMock as unknown as User);
 
       chaiHttpResponse = await chai
         .request(app)
