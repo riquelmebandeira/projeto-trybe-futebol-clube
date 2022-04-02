@@ -9,7 +9,7 @@ const loginController = loginControllerFactory();
 loginRouter.post('/', async (req: Request, res: Response) => {
   const { email, password: reqPassword } = req.body;
 
-  if (!email) return res.status(401).json({ message: 'All fields must be filled' });
+  if (!email || !reqPassword) return res.status(401).json({ message: 'All fields must be filled' });
 
   const user = await loginController.login(email, reqPassword);
 
