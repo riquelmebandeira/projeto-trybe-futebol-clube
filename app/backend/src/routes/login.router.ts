@@ -7,9 +7,9 @@ const loginRouter = Router();
 const loginController = loginControllerFactory();
 
 loginRouter.post('/', async (req: Request, res: Response) => {
-  const { email } = req.body;
+  const { email, password: reqPassword } = req.body;
 
-  const user = await loginController.login(email);
+  const user = await loginController.login(email, reqPassword);
 
   if (!user) return res.status(401).json({ message: 'Incorrect email or password' });
 
