@@ -16,7 +16,7 @@ const userMock = {
     'username': 'Admin',
     'role': 'admin',
     'email': 'admin@admin.com',
-    'password': '$2a$10$LROa6y0fyklVme5dvzef9eXOQMDHS3skaA11Cp04FkZgMSFnJZ8Z.',
+    'password': '12345678',
 }
 
 describe('Ao fazer uma requisição do tipo POST para a rota /login', () => {

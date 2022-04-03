@@ -1,4 +1,3 @@
-import * as bcrypt from 'bcryptjs';
 import User from '../database/models/User';
 
 class LoginService {
@@ -7,13 +6,7 @@ class LoginService {
   async login(email: string, password: string): Promise<User | null> {
     const result = await this.userModel.findOne({ raw: true, where: { email } });
 
-    let match;
-
-    if (result?.password) {
-      match = await bcrypt.compare(password, result.password);
-    }
-
-    if (!match) return null;
+    if (result?.password !== password) return null;
 
     return result as User | null;
   }
