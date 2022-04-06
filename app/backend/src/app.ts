@@ -1,5 +1,5 @@
 import * as express from 'express';
-import IRoute from './interfaces';
+import { IRoute } from './interfaces';
 import Routes from './routes';
 
 class App {
