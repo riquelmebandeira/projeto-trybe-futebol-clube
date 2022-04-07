@@ -11,11 +11,6 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-interface IClub {
-  id: number,
-  clubName: string,
-}
-
 const findAllMock = [
 	{
 		"id": 1,
@@ -45,7 +40,7 @@ describe('Ao fazer uma requisição do tipo GET para a rota /clubs', () => {
 
       chaiHttpResponse = await chai
         .request(app)
-        .post('/clubs');
+        .get('/clubs');
     });
   
     after(() => {
@@ -82,7 +77,7 @@ describe('Ao fazer uma requisição do tipo GET para a rota /clubs/id', () => {
 
       chaiHttpResponse = await chai
         .request(app)
-        .post('/clubs/1');
+        .get('/clubs/1');
     });
   
     after(() => {
