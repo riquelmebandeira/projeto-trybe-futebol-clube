@@ -14,6 +14,20 @@ class MatchsService {
 
     return result as unknown as Match;
   }
+
+  async getByProgress(value: boolean): Promise<Match> {
+    const result = await this.matchsModel.findAll({
+      where: {
+        inProgress: value,
+      },
+      include: [
+        { model: Club, as: 'homeClub' },
+        { model: Club, as: 'awayClub' },
+      ],
+    });
+
+    return result as unknown as Match;
+  }
 }
 
 export default MatchsService;
