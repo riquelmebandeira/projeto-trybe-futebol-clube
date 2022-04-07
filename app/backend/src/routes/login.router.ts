@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import * as fs from 'fs/promises';
 import * as jwt from 'jsonwebtoken';
 import { IUser } from '../interfaces';
-import loginControllerFactory from '../factories';
+import { loginControllerFactory } from '../factories';
 
 const loginRouter = Router();
 const loginController = loginControllerFactory();
@@ -25,7 +25,7 @@ loginRouter.post('/', async (req: Request, res: Response) => {
   res.status(200).json({ user: userInfo, token });
 });
 
-loginRouter.post('/validate', async (req: Request, res: Response) => {
+loginRouter.get('/validate', async (req: Request, res: Response) => {
   const { authorization } = req.headers;
 
   if (authorization) {

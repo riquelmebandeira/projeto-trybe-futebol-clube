@@ -1,4 +1,4 @@
-import LoginService from '../services';
+import { LoginService } from '../services';
 import User from '../database/models/User';
 
 class LoginController {

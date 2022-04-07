@@ -7,7 +7,7 @@ export default [
     router: loginRouter,
   },
   {
-    resource: 'clubs',
+    resource: '/clubs',
     router: clubsRouter,
   },
 ];

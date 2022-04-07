@@ -1,4 +1,4 @@
-import Club from '../database/models/User';
+import Club from '../database/models/Club';
 
 class ClubsService {
   readonly clubsModel = Club;
