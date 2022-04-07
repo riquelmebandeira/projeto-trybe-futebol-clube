@@ -1,5 +1,5 @@
-import LoginController from '../controllers';
-import LoginService from '../services';
+import { LoginController } from '../controllers';
+import { LoginService } from '../services';
 
 const loginControllerFactory = () => {
   const loginService = new LoginService();

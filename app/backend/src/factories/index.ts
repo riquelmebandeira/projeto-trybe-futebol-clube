@@ -1,3 +1,4 @@
 import loginControllerFactory from './login.controller.factory';
+import clubsControllerFactory from './clubs.controller.factory';
 
-export default loginControllerFactory;
+export { loginControllerFactory, clubsControllerFactory };
