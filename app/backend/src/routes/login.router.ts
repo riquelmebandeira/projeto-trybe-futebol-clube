@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
 import * as fs from 'fs/promises';
 import * as jwt from 'jsonwebtoken';
-import { IUser } from '../interfaces';
+import validateJWT from '../middlewares';
 import { loginControllerFactory } from '../factories';
 
 const loginRouter = Router();
@@ -25,18 +25,10 @@ loginRouter.post('/', async (req: Request, res: Response) => {
   res.status(200).json({ user: userInfo, token });
 });
 
-loginRouter.get('/validate', async (req: Request, res: Response) => {
-  const { authorization } = req.headers;
+loginRouter.get('/validate', validateJWT, async (req: Request, res: Response) => {
+  const { role } = res.locals;
 
-  if (authorization) {
-    const jwtSecret = await fs.readFile('jwt.evaluation.key', 'utf-8');
-
-    const userInfo = jwt.verify(authorization, jwtSecret) as IUser;
-
-    return res.status(200).json(userInfo.role);
-  }
-
-  return res.status(401).json({ message: 'Token not found' });
+  res.status(200).json(role);
 });
 
 export default loginRouter;
