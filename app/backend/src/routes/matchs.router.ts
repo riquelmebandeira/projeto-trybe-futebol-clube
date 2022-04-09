@@ -49,4 +49,13 @@ matchsRouter.patch('/:id/finish', async (req: Request, res: Response) => {
   res.status(200).json({ message: 'The match was sucessfully finished' });
 });
 
+matchsRouter.patch('/:id', async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { homeTeamGoals, awayTeamGoals } = req.body;
+
+  await matchsController.updateMatch(+id, homeTeamGoals, awayTeamGoals);
+
+  res.status(200).json({ message: 'The match was updated' });
+});
+
 export default matchsRouter;
