@@ -26,6 +26,10 @@ class MatchsController {
   async finishMatch(id: number): Promise<void> {
     await this.matchsService.finishMatch(id);
   }
+
+  async updateMatch(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<void> {
+    await this.matchsService.updateMatch(id, homeTeamGoals, awayTeamGoals);
+  }
 }
 
 export default MatchsController;
