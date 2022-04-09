@@ -45,6 +45,17 @@ class MatchsService {
 
     return result as unknown as IMatch;
   }
+
+  async finishMatch(id: number): Promise<boolean> {
+    const [result] = await this.matchsModel.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+
+    if (result) return true;
+
+    return false;
+  }
 }
 
 export default MatchsService;
