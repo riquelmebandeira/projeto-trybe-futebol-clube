@@ -22,6 +22,12 @@ class MatchsController {
 
     return result;
   }
+
+  async finishMatch(id: number): Promise<boolean> {
+    const result = await this.matchsService.finishMatch(id);
+
+    return result;
+  }
 }
 
 export default MatchsController;
