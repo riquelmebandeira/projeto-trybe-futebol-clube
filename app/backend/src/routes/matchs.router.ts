@@ -39,4 +39,18 @@ matchsRouter.post('/', validateJWT, async (req: Request, res: Response) => {
   return res.status(201).json(newMatch);
 });
 
+matchsRouter.patch('/:id/finish', async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const finishedMatch = await matchsController.finishMatch(+id);
+
+  if (!finishedMatch) {
+    return res.status(404).json(
+      { message: 'The match is already over or does not exist' },
+    );
+  }
+
+  return res.status(200).json({ message: 'The match was sucessfully finished' });
+});
+
 export default matchsRouter;
