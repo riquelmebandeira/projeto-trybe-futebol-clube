@@ -23,10 +23,8 @@ class MatchsController {
     return result;
   }
 
-  async finishMatch(id: number): Promise<boolean> {
-    const result = await this.matchsService.finishMatch(id);
-
-    return result;
+  async finishMatch(id: number): Promise<void> {
+    await this.matchsService.finishMatch(id);
   }
 }
 
