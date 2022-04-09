@@ -22,19 +22,21 @@ matchsRouter.get('/', async (req: Request, res: Response) => {
 });
 
 matchsRouter.post('/', validateJWT, async (req: Request, res: Response) => {
-  const { homeTeam, awayTeam, inProgress } = req.body;
+  const { homeTeam, awayTeam } = req.body;
 
-  if (homeTeam === awayTeam) return res.status(400).json({ message: 'Clubs must be different' });
-
-  if (inProgress !== 'true') {
-    return res.status(400).json(
-      { message: 'The match must be in progress' },
-    );
+  if (homeTeam === awayTeam) {
+    return res.status(401).json({
+      message: 'It is not possible to create a match with two equal teams',
+    });
   }
 
   const newMatch = await matchsController.createMatch(req.body);
 
-  if (!newMatch) return res.status(400).json({ message: 'Both clubs must exist' });
+  if (!newMatch) {
+    return res.status(401).json(
+      { message: 'There is no team with such id!' },
+    );
+  }
 
   return res.status(201).json(newMatch);
 });
@@ -42,15 +44,9 @@ matchsRouter.post('/', validateJWT, async (req: Request, res: Response) => {
 matchsRouter.patch('/:id/finish', async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const finishedMatch = await matchsController.finishMatch(+id);
+  await matchsController.finishMatch(+id);
 
-  if (!finishedMatch) {
-    return res.status(404).json(
-      { message: 'The match is already over or does not exist' },
-    );
-  }
-
-  return res.status(200).json({ message: 'The match was sucessfully finished' });
+  res.status(200).json({ message: 'The match was sucessfully finished' });
 });
 
 export default matchsRouter;
