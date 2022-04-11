@@ -5,7 +5,13 @@ const leaderboardRouter = Router();
 const leaderboardController = leaderboardControllerFactory();
 
 leaderboardRouter.get('/home', async (req: Request, res: Response) => {
-  const rankings = await leaderboardController.getRanking();
+  const rankings = await leaderboardController.getRankingsOf('homeClubs');
+
+  res.status(200).json(rankings);
+});
+
+leaderboardRouter.get('/away', async (req: Request, res: Response) => {
+  const rankings = await leaderboardController.getRankingsOf('awayClubs');
 
   res.status(200).json(rankings);
 });
