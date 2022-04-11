@@ -1,6 +1,7 @@
 import loginRouter from './login.router';
 import clubsRouter from './clubs.router';
 import matchsRouter from './matchs.router';
+import leaderboardRouter from './leaderboard.router';
 
 export default [
   {
@@ -14,5 +15,9 @@ export default [
   {
     resource: '/matchs',
     router: matchsRouter,
+  },
+  {
+    resource: '/leaderboard',
+    router: leaderboardRouter,
   },
 ];
