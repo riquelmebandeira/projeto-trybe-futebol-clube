@@ -1,4 +1,5 @@
-import calculateRankings from '../utils/calculateRankings';
+import { IMatch } from '../interfaces';
+import generateRankings from '../utils/generateRankings';
 import Club from '../database/models/Club';
 import Match from '../database/models/Match';
 import ClubRanking from '../utils/ClubRanking';
@@ -8,11 +9,10 @@ class LeaderboardService {
 
   readonly matchsModel = Match;
 
-  async getRankings(): Promise<ClubRanking[]> {
+  async getRankingsOf(homeOrAwayClubs: string): Promise<ClubRanking[]> {
     const clubs = await this.clubsModel.findAll();
 
     const matchs = await this.matchsModel.findAll({
-      raw: true,
       where: {
         inProgress: false,
       },
@@ -20,9 +20,10 @@ class LeaderboardService {
         { model: Club, as: 'homeClub' },
         { model: Club, as: 'awayClub' },
       ],
-    });
+    }) as unknown as IMatch[];
 
-    const rankings = calculateRankings(clubs, matchs);
+    const rankings = homeOrAwayClubs === 'homeClubs' ? generateRankings(clubs, matchs, 'homeClubs')
+      : generateRankings(clubs, matchs, 'awayClubs');
 
     return rankings.sort((a, b) =>
       b.totalPoints - a.totalPoints
