@@ -1,5 +1,3 @@
-import Match from '../database/models/Match';
-
 class ClubRanking {
   public name: string;
 
@@ -23,23 +21,6 @@ class ClubRanking {
 
   constructor(name: string) {
     this.name = name;
-  }
-
-  getMatchResults(matchs: Match[]): void {
-    matchs.forEach((match) => {
-      if (+match.homeTeamGoals > +match.awayTeamGoals) {
-        this.totalVictories += 1;
-        this.totalPoints += 3;
-      } else if (+match.homeTeamGoals < +match.awayTeamGoals) {
-        this.totalLosses += 1;
-      } else {
-        this.totalDraws += 1;
-        this.totalPoints += 1;
-      }
-      this.totalGames += 1;
-      this.goalsFavor += +match.homeTeamGoals;
-      this.goalsOwn += +match.awayTeamGoals;
-    });
   }
 
   getEfficiency(): void {
