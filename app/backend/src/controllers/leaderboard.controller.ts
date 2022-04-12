@@ -1,11 +1,17 @@
+import { IRanking } from '../interfaces';
 import { LeaderboardService } from '../services';
-import ClubRanking from '../utils/ClubRanking';
 
 class LeaderboardController {
   constructor(readonly leaderboardService: LeaderboardService) {}
 
-  async getRankingsOf(homeOrAwayClubs: string): Promise<ClubRanking[]> {
-    const result = await this.leaderboardService.getRankingsOf(homeOrAwayClubs);
+  async getHomeRankings(): Promise<IRanking[]> {
+    const result = await this.leaderboardService.getHomeRankings();
+
+    return result;
+  }
+
+  async getAwayRankings(): Promise<IRanking[]> {
+    const result = await this.leaderboardService.getAwayRankings();
 
     return result;
   }
