@@ -9,21 +9,12 @@ class LeaderboardService {
 
   readonly matchsModel = Match;
 
-  private clubs: Club[];
-
-  private matchs: IMatch[];
-
-  constructor() {
-    this.getClubs();
-    this.getMatchs();
+  async getClubs(): Promise<Club[]> {
+    return this.clubsModel.findAll();
   }
 
-  async getClubs(): Promise<void> {
-    this.clubs = await this.clubsModel.findAll();
-  }
-
-  async getMatchs(): Promise<void> {
-    this.matchs = await this.matchsModel.findAll({
+  async getMatchs(): Promise<IMatch[]> {
+    return this.matchsModel.findAll({
       where: {
         inProgress: false,
       },
@@ -35,8 +26,11 @@ class LeaderboardService {
   }
 
   async getHomeRankings(): Promise<IRanking[]> {
-    const rankings = this.clubs.map(({ clubName, id }) => {
-      const clubRanking = new ClubRanking(clubName, id, this.matchs);
+    const clubs = await this.getClubs();
+    const matchs = await this.getMatchs();
+
+    const rankings = clubs.map(({ clubName, id }) => {
+      const clubRanking = new ClubRanking(clubName, id, matchs);
 
       clubRanking.getHomeMatchsResults();
 
@@ -46,8 +40,11 @@ class LeaderboardService {
   }
 
   async getAwayRankings(): Promise<IRanking[]> {
-    const rankings = this.clubs.map(({ clubName, id }) => {
-      const clubRanking = new ClubRanking(clubName, id, this.matchs);
+    const clubs = await this.getClubs();
+    const matchs = await this.getMatchs();
+
+    const rankings = clubs.map(({ clubName, id }) => {
+      const clubRanking = new ClubRanking(clubName, id, matchs);
 
       clubRanking.getAwayMatchsResults();
 
@@ -57,8 +54,11 @@ class LeaderboardService {
   }
 
   async getGeneralRankings(): Promise<IRanking[]> {
-    const rankings = this.clubs.map(({ clubName, id }) => {
-      const clubRanking = new ClubRanking(clubName, id, this.matchs);
+    const clubs = await this.getClubs();
+    const matchs = await this.getMatchs();
+
+    const rankings = clubs.map(({ clubName, id }) => {
+      const clubRanking = new ClubRanking(clubName, id, matchs);
 
       clubRanking.getHomeMatchsResults();
       clubRanking.getAwayMatchsResults();
