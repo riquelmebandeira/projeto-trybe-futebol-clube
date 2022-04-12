@@ -55,6 +55,18 @@ class LeaderboardService {
     });
     return sortRankings(rankings);
   }
+
+  async getGeneralRankings(): Promise<IRanking[]> {
+    const rankings = this.clubs.map(({ clubName, id }) => {
+      const clubRanking = new ClubRanking(clubName, id, this.matchs);
+
+      clubRanking.getHomeMatchsResults();
+      clubRanking.getAwayMatchsResults();
+
+      return clubRanking.showResults();
+    });
+    return sortRankings(rankings);
+  }
 }
 
 export default LeaderboardService;
