@@ -15,6 +15,12 @@ class LeaderboardController {
 
     return result;
   }
+
+  async getGeneralRankings(): Promise<IRanking[]> {
+    const result = await this.leaderboardService.getGeneralRankings();
+
+    return result;
+  }
 }
 
 export default LeaderboardController;
