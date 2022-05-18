@@ -6,7 +6,7 @@ O TFC é um site informativo sobre partidas e classificações de futebol!
 O objetivo desse projeto foi desenvolver uma API REST, para abastecer a interface previamente fornecida pela Trybe.
 
 Durante o desenvolvimento, foi aplicado a métodologia TDD e os príncipios SOLID. 
-A integração do Front-end, Back-end e banco de dados foi feita através do Docker.
+A integração do Front-end, Back-end e banco de dados foi feita através do Docker Compose.
 
 ## Tecnologias usadas
 
@@ -42,7 +42,7 @@ npm run install:apps
 
 ## Executando a aplicação
 
-* Para rodar a aplicação, integrada pelo docker, utilize o comando:
+* Para rodar a aplicação, integrada pelo docker compose, utilize o comando:
 
 ```
 npm run compose:up
@@ -54,6 +54,25 @@ Após subir, a aplicação pode ser acessada pelo endereço http://localhost:300
 
 ```
 npm run compose:down
+```
+---
+Para rodar as aplicações separadamente, é necessário criar e configurar um arquivo __.env__ a partir do modelo disponível em __app/backend/.env.example__
+
+__(Neste arquivo é obrigatório deixar o nome do database como 'TRYBE_FUTEBOL_CLUBE')__
+
+---
+* Para rodar o back-end, execute:
+
+```
+cd app/backend
+npm start
+```
+
+* Para rodar o front-end, execute:
+
+```
+cd app/frontend
+npm start
 ```
 
 ## Executando testes
