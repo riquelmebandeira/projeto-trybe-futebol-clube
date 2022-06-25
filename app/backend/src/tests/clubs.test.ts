@@ -1,43 +1,22 @@
 import { describe } from 'mocha';
-import * as sinon from 'sinon';
-import * as chai from 'chai';
-import chaiHttp = require('chai-http');
-
+import sinon from 'sinon';
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import { Response } from 'superagent';
 import { app } from '../app';
 import Club from '../database/models/Club'
-
-import { Response } from 'superagent';
+import clubsMock from './mocks/clubs.json';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
-
-const findAllMock = [
-	{
-		"id": 1,
-		"clubName": "Avaí/Kindermann"
-	},
-	{
-		"id": 2,
-		"clubName": "Bahia"
-	},
-	{
-		"id": 3,
-		"clubName": "Botafogo"
-	}
-]
-
-const findOneMock = {
-  "id": 1,
-  "clubName": "Avaí/Kindermann"
-}
 
 describe('Ao fazer uma requisição do tipo GET para a rota /clubs', () => {
   let chaiHttpResponse: Response;
 
     before(async () => {
       sinon.stub(Club, "findAll" as any)
-        .resolves(findAllMock as unknown as Club);
+        .resolves(clubsMock as unknown as Club);
 
       chaiHttpResponse = await chai
         .request(app)
@@ -57,7 +36,7 @@ describe('Ao fazer uma requisição do tipo GET para a rota /clubs', () => {
     });
 
     it('Tal array deve conter objetos', () => {
-      expect(chaiHttpResponse.body).to.be.deep.members(findAllMock);
+      expect(chaiHttpResponse.body).to.be.deep.members(clubsMock);
     });
 
     it('Tais objetos devem possuir a propriedade "id"', () => {
@@ -74,7 +53,7 @@ describe('Ao fazer uma requisição do tipo GET para a rota /clubs/id', () => {
 
     before(async () => {
       sinon.stub(Club, "findOne")
-        .resolves(findOneMock as unknown as Club);
+        .resolves(clubsMock[0] as unknown as Club);
 
       chaiHttpResponse = await chai
         .request(app)

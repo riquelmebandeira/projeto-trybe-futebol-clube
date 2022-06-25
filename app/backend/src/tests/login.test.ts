@@ -1,24 +1,15 @@
 import { describe } from 'mocha';
-import * as sinon from 'sinon';
-import * as chai from 'chai';
-import chaiHttp = require('chai-http');
-
+import sinon from 'sinon';
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import { Response } from 'superagent';
 import { app } from '../app';
 import User from '../database/models/User'
-
-import { Response } from 'superagent';
+import userMock from './mocks/user.json';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
-
-const userMock = {
-    'id': 1,
-    'username': 'Admin',
-    'role': 'admin',
-    'email': 'admin@admin.com',
-    'password': '$2a$10$LROa6y0fyklVme5dvzef9eXOQMDHS3skaA11Cp04FkZgMSFnJZ8Z.',
-}
 
 describe('Ao fazer uma requisição do tipo POST para a rota /login', () => {
   let chaiHttpResponse: Response;

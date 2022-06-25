@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 import { IRoute } from './interfaces';
 import Routes from './routes';
 
