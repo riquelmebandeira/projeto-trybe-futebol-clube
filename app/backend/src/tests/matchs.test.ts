@@ -1,3 +1,4 @@
+import { describe } from 'mocha';
 import * as sinon from 'sinon';
 import * as chai from 'chai';
 import chaiHttp = require('chai-http');
